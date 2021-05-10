@@ -1,0 +1,28 @@
+{
+  "name": "simple-pub-sub-global-data",
+  "version": "1.0.0",
+  "description": "A very, very simplistic pub-sub and global data library without dependencies.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miguelgilrosas/simple-pub-sub-global-data.git"
+  },
+  "keywords": [
+    "pub-sub",
+    "pub/sub",
+    "pub",
+    "sub",
+    "publication",
+    "subscription",
+    "global"
+  ],
+  "author": "Miguel Gil Rosas <miguelgilrosas at gmail dot com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/miguelgilrosas/simple-pub-sub-global-data/issues"
+  },
+  "homepage": "https://github.com/miguelgilrosas/simple-pub-sub-global-data#readme"
+}
