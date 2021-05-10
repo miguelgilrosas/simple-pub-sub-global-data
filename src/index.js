@@ -22,6 +22,10 @@ module.exports = class SimplePubSubGlobalData {
 		delete this._data.data[item]
 	}
 
+	static removeAllData() {
+		this._data.data = {}
+	}
+
 	static subscribe(event, func) {
 		const subs = this._data.pubSubStructure.subscriptions
 		if (subs[event]) {
@@ -33,16 +37,14 @@ module.exports = class SimplePubSubGlobalData {
 	}
 
 	static unsubscribe(event, func) {
-		const subs = this._data.pubSubStructure.subscriptions
-			, funcList = subs[event]
+		const funcList = this._data.pubSubStructure.subscriptions[event]
 		if (funcList  !== undefined && funcList.includes(func)) {
 			funcList.splice(funcList.indexOf(func), 1)
 		}
 	}
 
 	static publish(event, data) {
-		const subs = this._data.pubSubStructure.subscriptions
-			, funcList = subs[event]
+		const funcList = this._data.pubSubStructure.subscriptions[event]
 		if (funcList !== undefined) {
 			funcList.forEach(func => setTimeout(func, 0, data))
 		}
