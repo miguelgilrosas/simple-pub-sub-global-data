@@ -50,11 +50,10 @@ describe('Pub-Sub', () => {
 		Spsgd.unsubscribe('test3', data => Spsgd.setData('test3', data))
 		Spsgd.publish('test3', 'Up')
 		setTimeout(
-			() =>
-				{
-					expect(Spsgd.getData('test3')).not.toBe('U' + 'p')
-					expect(Spsgd.getData('test3')).toBeUndefined()
-				}
+			() => {
+				expect(Spsgd.getData('test3')).not.toBe('U' + 'p')
+				expect(Spsgd.getData('test3')).toBeUndefined()
+			}
 			, 0
 		)
 	})
