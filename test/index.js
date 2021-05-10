@@ -1,8 +1,8 @@
 'use strict'
 
 const SimplePubSubGlobalData = require('..')
-	, one = require('./one.js')
-	, two = require('./two.js')
+	, one = require('./one')
+	, two = require('./two')
 
 function testMain() {
 	SimplePubSubGlobalData.setData('value', 0)
