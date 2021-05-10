@@ -2,9 +2,9 @@
   "name": "simple-pub-sub-global-data",
   "version": "1.0.0",
   "description": "A very, very simplistic pub-sub and global data library without dependencies.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test"
   },
   "repository": {
     "type": "git",
