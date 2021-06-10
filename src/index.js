@@ -1,52 +1,68 @@
-module.exports = class SimplePubSubGlobalData {
-	static _data = {
-		pubSubStructure: {
-			subscriptions: {}
-		},
-		data: {},
-	}
+const globalEnvironment = window || global
+let SimplePubSubGlobalData
 
-	static getAllData() {
-		return this._data.data
-	}
-
-	static getData(item) {
-		return this._data.data[item]
-	}
-
-	static setData(item, value) {
-		this._data.data[item] = value
-	}
-
-	static removeData(item) {
-		delete this._data.data[item]
-	}
-
-	static removeAllData() {
-		this._data.data = {}
-	}
-
-	static subscribe(event, func) {
-		const subs = this._data.pubSubStructure.subscriptions
-		if (subs[event]) {
-			subs[event].push(func)
-		}
-		else {
-			subs[event] = [func]
-		}
-	}
-
-	static unsubscribe(event, func) {
-		const funcList = this._data.pubSubStructure.subscriptions[event]
-		if (funcList  !== undefined && funcList.includes(func)) {
-			funcList.splice(funcList.indexOf(func), 1)
-		}
-	}
-
-	static publish(event, data) {
-		const funcList = this._data.pubSubStructure.subscriptions[event]
-		if (funcList !== undefined) {
-			funcList.forEach(func => setTimeout(func, 0, data))
-		}
-	}
+if (globalEnvironment.SimplePubSubGlobalData) {
+	SimplePubSubGlobalData = globalEnvironment.SimplePubSubGlobalData
 }
+else {
+	SimplePubSubGlobalData = {
+		_data: {
+			pubSubStructure: {
+				subscriptions: {}
+			},
+			data: {},
+		},
+
+		getAllData() {
+			return this._data.data
+		},
+
+		getData(item) {
+			return this._data.data[item]
+		},
+
+		setData(item, value) {
+			this._data.data[item] = value
+		},
+
+		removeData(item) {
+			delete this._data.data[item]
+		},
+
+		removeAllData() {
+			this._data.data = {}
+		},
+
+		subscribe(event, func) {
+			const subs = this._data.pubSubStructure.subscriptions
+			if (subs[event]) {
+				subs[event].push(func)
+			}
+			else {
+				subs[event] = [func]
+			}
+		},
+
+		unsubscribe(event, func) {
+			const funcList = this._data.pubSubStructure.subscriptions[event]
+			if (funcList !== undefined && funcList.includes(func)) {
+				funcList.splice(funcList.indexOf(func), 1)
+			}
+		},
+
+		publish(event, data) {
+			const funcList = this._data.pubSubStructure.subscriptions[event]
+			if (funcList !== undefined) {
+				funcList.forEach(func => setTimeout(func, 0, data))
+			}
+		}
+	}
+
+	// To allow imports or requires in destructuring form, ex.: import { getData } from 'simple-pub-sub-global-data'
+	;['getAllData', 'getData', 'setData', 'removeData', 'removeAllData', 'subscribe', 'unsubscribe', 'publish']
+		.forEach(method => SimplePubSubGlobalData[method] = SimplePubSubGlobalData[method].bind(SimplePubSubGlobalData))
+
+	globalEnvironment.SimplePubSubGlobalData = SimplePubSubGlobalData
+}
+
+module.exports = SimplePubSubGlobalData
