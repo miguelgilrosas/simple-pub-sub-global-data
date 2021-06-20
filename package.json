@@ -17,9 +17,10 @@
     "sub",
     "publication",
     "subscription",
-    "global"
+    "global",
+    "data store"
   ],
-  "author": "Miguel Gil Rosas <miguelgilrosas at gmail dot com>",
+  "author": "Miguel GilRosas <miguelgilrosas at gmail dot com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/miguelgilrosas/simple-pub-sub-global-data/issues"
