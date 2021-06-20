@@ -1,3 +1,5 @@
+'use strict'
+
 const globalEnvironment = window || global
 let SimplePubSubGlobalData
 
