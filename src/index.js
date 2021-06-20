@@ -1,6 +1,6 @@
 'use strict'
 
-const globalEnvironment = window || global
+const globalEnvironment = typeof window === 'object' ? window : global
 let SimplePubSubGlobalData
 
 if (globalEnvironment.SimplePubSubGlobalData) {
@@ -15,47 +15,62 @@ else {
 			data: {},
 		},
 
-		getAllData() {
+		getAllData: function() {
 			return this._data.data
 		},
 
-		getData(item) {
+		getData: function(item) {
 			return this._data.data[item]
 		},
 
-		setData(item, value) {
+		setData: function(item, value) {
 			this._data.data[item] = value
 		},
 
-		removeData(item) {
+		removeData: function(item) {
 			delete this._data.data[item]
 		},
 
-		removeAllData() {
+		removeAllData: function() {
 			this._data.data = {}
 		},
 
-		subscribe(event, func) {
+		subscribe: function(event, func, sync = false) {
 			const subs = this._data.pubSubStructure.subscriptions
 			if (subs[event]) {
-				subs[event].push(func)
+				subs[event].push([func, sync])
 			}
 			else {
-				subs[event] = [func]
+				subs[event] = [[func, sync]]
 			}
 		},
 
-		unsubscribe(event, func) {
-			const funcList = this._data.pubSubStructure.subscriptions[event]
-			if (funcList !== undefined && funcList.includes(func)) {
-				funcList.splice(funcList.indexOf(func), 1)
+		unsubscribe: function(event, func) {
+			let funcDataList = this._data.pubSubStructure.subscriptions[event]
+			if (funcDataList !== undefined ) {
+				funcDataList = funcDataList
+					.filter(funcData => funcData[0] !== func)
+
+				if (funcDataList.length === 0) {
+					delete this._data.pubSubStructure.subscriptions[event]
+					return
+				}
+
+				this._data.pubSubStructure.subscriptions[event] = funcDataList
 			}
 		},
 
-		publish(event, data) {
+		publish: function(event, data) {
 			const funcList = this._data.pubSubStructure.subscriptions[event]
 			if (funcList !== undefined) {
-				funcList.forEach(func => setTimeout(func, 0, data))
+				funcList.forEach(funcData => {
+					if (funcData[1]) {
+						funcData[0](data)
+					}
+					else {
+						setTimeout(funcData[0], 0, data)
+					}
+				})
 			}
 		}
 	}
