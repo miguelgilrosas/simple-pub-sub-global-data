@@ -1,6 +1,6 @@
 'use strict'
 
-const globalEnvironment = window || global
+const globalEnvironment = typeof window === 'object' ? window : global
 let SimplePubSubGlobalData
 
 if (globalEnvironment.SimplePubSubGlobalData) {
@@ -15,27 +15,27 @@ else {
 			data: {},
 		},
 
-		getAllData() {
+		getAllData: function() {
 			return this._data.data
 		},
 
-		getData(item) {
+		getData: function(item) {
 			return this._data.data[item]
 		},
 
-		setData(item, value) {
+		setData: function(item, value) {
 			this._data.data[item] = value
 		},
 
-		removeData(item) {
+		removeData: function(item) {
 			delete this._data.data[item]
 		},
 
-		removeAllData() {
+		removeAllData: function() {
 			this._data.data = {}
 		},
 
-		subscribe(event, func, sync = false) {
+		subscribe: function(event, func, sync = false) {
 			const subs = this._data.pubSubStructure.subscriptions
 			if (subs[event]) {
 				subs[event].push([func, sync])
@@ -45,7 +45,7 @@ else {
 			}
 		},
 
-		unsubscribe(event, func) {
+		unsubscribe: function(event, func) {
 			let funcDataList = this._data.pubSubStructure.subscriptions[event]
 			if (funcDataList !== undefined ) {
 				funcDataList = funcDataList
@@ -60,7 +60,7 @@ else {
 			}
 		},
 
-		publish(event, data) {
+		publish: function(event, data) {
 			const funcList = this._data.pubSubStructure.subscriptions[event]
 			if (funcList !== undefined) {
 				funcList.forEach(funcData => {
