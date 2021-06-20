@@ -35,27 +35,42 @@ else {
 			this._data.data = {}
 		},
 
-		subscribe(event, func) {
+		subscribe(event, func, sync = false) {
 			const subs = this._data.pubSubStructure.subscriptions
 			if (subs[event]) {
-				subs[event].push(func)
+				subs[event].push([func, sync])
 			}
 			else {
-				subs[event] = [func]
+				subs[event] = [[func, sync]]
 			}
 		},
 
 		unsubscribe(event, func) {
-			const funcList = this._data.pubSubStructure.subscriptions[event]
-			if (funcList !== undefined && funcList.includes(func)) {
-				funcList.splice(funcList.indexOf(func), 1)
+			let funcDataList = this._data.pubSubStructure.subscriptions[event]
+			if (funcDataList !== undefined ) {
+				funcDataList = funcDataList
+					.filter(funcData => funcData[0] !== func)
+
+				if (funcDataList.length === 0) {
+					delete this._data.pubSubStructure.subscriptions[event]
+					return
+				}
+
+				this._data.pubSubStructure.subscriptions[event] = funcDataList
 			}
 		},
 
 		publish(event, data) {
 			const funcList = this._data.pubSubStructure.subscriptions[event]
 			if (funcList !== undefined) {
-				funcList.forEach(func => setTimeout(func, 0, data))
+				funcList.forEach(funcData => {
+					if (funcData[1]) {
+						funcData[0](data)
+					}
+					else {
+						setTimeout(funcData[0], 0, data)
+					}
+				})
 			}
 		}
 	}
