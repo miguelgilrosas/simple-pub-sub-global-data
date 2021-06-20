@@ -61,8 +61,9 @@ else {
 	}
 
 	// To allow imports or requires in destructuring form, ex.: import { getData } from 'simple-pub-sub-global-data'
-	;['getAllData', 'getData', 'setData', 'removeData', 'removeAllData', 'subscribe', 'unsubscribe', 'publish']
-		.forEach(method => SimplePubSubGlobalData[method] = SimplePubSubGlobalData[method].bind(SimplePubSubGlobalData))
+	Object.keys(SimplePubSubGlobalData)
+		.filter(k => typeof SimplePubSubGlobalData[k] === 'function')
+		.forEach(k => SimplePubSubGlobalData[k] = SimplePubSubGlobalData[k].bind(SimplePubSubGlobalData))
 
 	globalEnvironment.SimplePubSubGlobalData = SimplePubSubGlobalData
 }
