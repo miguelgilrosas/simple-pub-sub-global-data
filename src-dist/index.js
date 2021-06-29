@@ -1,3 +1,11 @@
+/**
+ * This code is purposely written in old-fashioned style (ES6, ES2015). This is done so that it is not necessary to add
+ * transpilation dependencies.
+ *
+ * Este código está escrito a propósito en estilo anticuado (ES6, ES2015). Se hace así para que no sea necesario añadir
+ * dependencias de transpilación.
+ */
+
 'use strict'
 
 const globalEnvironment = typeof window === 'object' ? window : global
