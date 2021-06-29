@@ -83,4 +83,6 @@ else {
 	globalEnvironment.SimplePubSubGlobalData = SimplePubSubGlobalData
 }
 
-module.exports = SimplePubSubGlobalData
+if (typeof module === 'object') {
+	module.exports = SimplePubSubGlobalData
+}
