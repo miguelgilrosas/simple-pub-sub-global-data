@@ -69,6 +69,6 @@ HAS TO BE UNSUBSCRIBED before destruction.
 
 ## Contraindication
 
-This library creates a variable in the global scope named 'SimplePubSubGlobalData', so do not use that name in global
+This library creates a variable in the global scope named '**SimplePubSubGlobalData**', so do not use that name in global
 scope.
 
