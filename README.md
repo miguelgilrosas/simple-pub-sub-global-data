@@ -3,7 +3,7 @@ A very, very simplistic pub-sub and global data library without dependencies or 
 
 Works in browser and Node (not tested in Deno).
 
-##Usage
+## Usage
 
 ```bash
 npm install simple-pub-sub-global-data
@@ -31,9 +31,9 @@ const { getData } = require('simple-pub-sub-global-data')
 // 'getData' or any of the methods
 ```
 
-##Methods
+## Methods
 
-###Data Store
+### Data Store
 
 * **getAllData()**
 
@@ -45,7 +45,7 @@ const { getData } = require('simple-pub-sub-global-data')
 
 * **setData(key: string, data: any)**
 
-###Pub - Sub
+### Pub - Sub
 
 * **publish(event: string, data: any = undefined)**
 
@@ -60,14 +60,14 @@ const { getData } = require('simple-pub-sub-global-data')
 
 * **unsubscribe(event: string, func: function)**
 
-####Notes:
+#### Notes:
 
 * To 'unsubscribe' with success, the function has to be a named one.
 
 * If a function has been subscribed inside a class, component or any code container that can be destroyed, that function
 HAS TO BE UNSUBSCRIBED before destruction.
 
-##Contraindication
+## Contraindication
 
 This library creates a variable in the global scope named 'SimplePubSubGlobalData', so do not use that name in global
 scope.
