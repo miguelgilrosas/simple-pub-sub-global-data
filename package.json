@@ -1,6 +1,6 @@
 {
   "name": "simple-pub-sub-global-data",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A very, very simplistic pub-sub and global data library without dependencies.",
   "main": "src-dist/index.js",
   "scripts": {
